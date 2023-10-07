@@ -20,13 +20,11 @@ create table trek_code(
    "time_update" timestamp default current_timestamp not null
 )
 
-create table order(
+create table orders(
    "id" serial primary key,
-   "trackId" integer default 1 not null, 
-   --"meneger id"
+   "trackId" integer not null, 
    "sender" integer default 1 not null, 
    "status" integer default 1 not null, 
-    -- get meneger id
    "receiver" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
@@ -34,7 +32,6 @@ create table order(
 create table points(
    "id" serial primary key,
    "orderId" integer default 1 not null, 
---   "meneger id"
    "status" integer default 1 not null, 
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      .ddf{
+        width: 320px;
+        border: 1px solid red;
+        padding: 4px;
+        margin-top: 10px;
+      }  
+      pre{
+        color: violet;
+      }
+      h1{
+        font-size: 23px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      p{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+    </style>
+</head>
+<body>
+    <h1>https://trak-code.onrender.com/</h1>
+
+<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+  <div class="ddf" >
+    <h1>/auth/users</h1>
+    <p>Method:GET,DELETE,PUT</p>
+    <pre>
+ "email" VARCHAR(120) not null,
+ "password" VARCHAR(100) not null,
+ "address" VARCHAR(1024) ,
+ "admin" boolean default false not null,
+ "manager" boolean default false not null,
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/auth/register</h1>
+    <p>Method:POST</p>
+    <pre>
+ "email" VARCHAR(120) not null,
+ "password" VARCHAR(100) not null,
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/auth/login</h1>
+    <p>Method:POST</p>
+    <pre>
+ "email" VARCHAR(120) not null,
+ "password" VARCHAR(100) not null,
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/api/trek</h1>
+    <p>Method:POST,GET,DELETE,PUT</p>
+    <pre>
+        "status" integer default 1 not null, 
+        "menegerid" integer,
+        "deckription" text,
+        "sender" integer default 1 not null, 
+    </pre>
+  </div>
+  
+</div>
+
+</body>
+</html>

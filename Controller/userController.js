@@ -66,6 +66,22 @@ class Manager{
             return res.status(404).send({err:error,message:'Ошибка'})
         }
     }
+    async  updateUser(req,res) {
+        var {id, email, password, address}=req.body
+        var {id}=req.params
+        const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';
+        const values = [email, password, address, id];
+        try {
+            const result = await pool.query(query, values);
+            if(result.rows[0].length==0){
+                return res.status(404).send({message:'Ошибка'})
+            }else{
+              return  res.status(200).send(result.rows[0]);  
+            }  
+        } catch (error) {
+            return res.status(404).send({err:error,message:'Ошибка'})
+        }
+    }
     async  loginUser(req,res) {
         const query = 'SELECT * FROM users WHERE email = $1 AND password = $2';
         var {email, password}=req.body

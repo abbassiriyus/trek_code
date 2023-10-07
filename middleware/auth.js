@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 class Auth{
     
    // Middleware yaratish\
-    authenticateToken(req, res, next) {
+authenticateToken(req, res, next) {
     const token = req.header('Authorization');
     if (token == null) return res.sendStatus(401);
 
@@ -22,11 +22,11 @@ async  isAdmin(req, res, next) {
     if (!user || !user.admin) return res.sendStatus(403);
     next();
     }
-    async isAdminOrManager(req, res, next) {
+async isAdminOrManager(req, res, next) {
         const user = req.user;
         if (!user || (!user.admin && !user.manager)) return res.sendStatus(403);
         next();
-    }
+}
     // async isCurrentManager(req,res,next){
     //     let order = await Order.findOne({trackId:req.params['trackId']})
     //     if(!order)
