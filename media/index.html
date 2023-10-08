@@ -25,7 +25,7 @@
 </head>
 <body>
     <h1>https://trak-code.onrender.com/</h1>
-
+<h2>abbascodeup@gmail.com</h2>
 <div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
   <div class="ddf" >
     <h1>/auth/users</h1>
@@ -55,16 +55,40 @@
     </pre>
   </div>
   <div class="ddf" >
-    <h1>/api/trek</h1>
+    <h1>/api/orders</h1>
     <p>Method:POST,GET,DELETE,PUT</p>
     <pre>
-        "status" integer default 1 not null, 
-        "menegerid" integer,
-        "deckription" text,
-        "sender" integer default 1 not null, 
+      "trackId" integer not null, 
+      "sender" integer default 1 not null, 
     </pre>
   </div>
-  
+  <div class="ddf" >
+    <h1>/api/ordersaddress</h1>
+    <p>Method:POST,GET,DELETE,PUT</p>
+    <pre>
+      "ordersid" integer not null, 
+      "sender" integer default 1 not null, 
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/api/zakaz</h1>
+    <p>Method:POST,GET,DELETE,PUT</p>
+    <pre>
+      "status" integer default 1 not null, 
+      "menegerid" integer,
+      "deckription" text,
+      "creator" integer default 1 not null, 
+      "oredersid" integer default 1 not null,
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/api/points</h1>
+    <p>Method:POST,GET,DELETE,PUT</p>
+    <pre>
+      "status" integer default 1 not null, 
+      "zakaz_id" integer default 1 not null, 
+    </pre>
+  </div>
 </div>
 
 </body>
