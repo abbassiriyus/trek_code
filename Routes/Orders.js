@@ -18,7 +18,7 @@ router.post('/orders', async (req, res) => {
 router.get('/orders', async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
-    const ordersaddress = 'SELECT * FROM ordersaddress';
+    const ordersaddress = 'SELECT * FROM orders_address';
     const users = 'SELECT address,email,id FROM users';
     const result1 = await pool.query(orders);
     const result2 = await pool.query(ordersaddress);
@@ -47,7 +47,6 @@ if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0])
 }}
       res.json(result1.rows);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });

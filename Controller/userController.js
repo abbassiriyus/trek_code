@@ -90,16 +90,17 @@ class Manager{
         const values = [email, password];
         try {
             const result = await pool.query(query, values);
-    
             if (result.rowCount === 0) {
-                throw new Error('Invalid email or password');
-            }
-            const user = result.rows[0];
+                res.status(500).send("error")
+            }else{
+                const user = result.rows[0];
             const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_KEY, { expiresIn: '1h' });
             user.token=token
-            return  res.status(200).send(result.rows[0]);
+            return  res.status(200).send(result.rows[0]);  
+            }
+          
         } catch (error) {
-            throw error;
+            res.status(500).send("error")
         }
     }  
 }
