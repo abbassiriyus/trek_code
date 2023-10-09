@@ -13,7 +13,7 @@ create table users(
 
 create table orders(
    "id" serial primary key,
-   "trackId" integer not null, 
+   "trackId" VARCHAR(50) not null, 
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null

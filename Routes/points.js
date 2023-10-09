@@ -17,7 +17,7 @@ router.post('/points', async (req, res) => {
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
+});
   
   // Read (GET) operation
   router.get('/points', async (req, res) => {

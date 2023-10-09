@@ -1,9 +1,9 @@
 var express = require('express');
-var trekCodeRouter = express.Router();
+var router = express.Router();
 const jwt = require('jsonwebtoken')
 const pool = require("../db")
 
-trekCodeRouter.post('/orders', async (req, res) => {
+router.post('/orders', async (req, res) => {
     try {
       const { trackId, sender } = req.body;
       const client = await pool.connect();
@@ -18,20 +18,47 @@ trekCodeRouter.post('/orders', async (req, res) => {
     }
   });
   
-  trekCodeRouter.get('/orders', async (req, res) => {
+  router.get('/orders', async (req, res) => {
     try {
-      const client = await pool.connect();
-      const query = 'SELECT * FROM orders';
-      const result = await client.query(query);
-      client.release();
-      res.json(result.rows);
+      // const client = await pool.connect();
+      const orders = 'SELECT * FROM orders';
+      const ordersaddress = 'SELECT * FROM ordersaddress';
+      const users = 'SELECT address,email,id FROM users';
+
+      const result1 = await pool.query(orders);
+      const result2 = await pool.query(ordersaddress);
+      const result3 = await pool.query(users);
+for (let i = 0; i < result1.rows.length; i++) {
+ result1.rows[i].insender=[]
+for (let j = 0; j < result3.rows.length; j++) {
+ if (result1.rows[i].sender==result3.rows[j].id) {
+  result1.rows[i].insender.push(result3.rows[j])
+ }
+ }
+}
+for (let i = 0; i < result2.rows.length; i++) {
+  result2.rows[i].insender=[]
+ for (let j = 0; j < result3.rows.length; j++) {
+  if (result2.rows[i].sender==result3.rows[j].id) {
+   result2.rows[i].insender.push(result3.rows[j])
+  }
+  }
+ }
+ for (let i = 0; i < result1.rows.length; i++) {
+for (let j = 0; j < result2.rows.length; j++) {
+if(result1.rows[i].id==result2.rows[j].ordersid && result2.rows[j].insender[0]){
+  result1.rows[i].insender.push(result2.rows[j].insender[0])
+}
+}}
+
+      res.json(result1.rows);
     } catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
   
-  trekCodeRouter.put('/orders/:id', async (req, res) => {
+  router.put('/orders/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const { trackId, sender } = req.body;
@@ -47,7 +74,7 @@ trekCodeRouter.post('/orders', async (req, res) => {
     }
   });
   
-  trekCodeRouter.delete('/orders/:id', async (req, res) => {
+  router.delete('/orders/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const client = await pool.connect();
@@ -63,4 +90,4 @@ trekCodeRouter.post('/orders', async (req, res) => {
   });
 
 
-module.exports = trekCodeRouter;
+module.exports = router;
