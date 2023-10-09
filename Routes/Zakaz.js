@@ -23,17 +23,14 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
   // Read (GET) operation
   router.get('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
-     
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
       const query3= 'SELECT * FROM users'
-      const query4= 'SELECT * FROM users'
-
+      const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
       const result3 = await pool.query(query3);
       const result4 = await pool.query(query4);
-
 
 for (let i = 0; i < result.rows.length; i++) {
   result.rows[i].ponts=[]
@@ -46,9 +43,10 @@ for (let i = 0; i < result.rows.length; i++) {
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].menegerid==result3.rows[j].id){
   var a=result3.rows[j]
-  a[0].password="*******"
-  a[0].email="*******@gmail.com"
-  a[0].id="***"
+
+  a.password="*******"
+  a.email="*******@gmail.com"
+  a.id="***"
   result.rows[i].meneger=a
 }}}
 for (let i = 0; i < result.rows.length; i++) {
@@ -56,10 +54,10 @@ for (let i = 0; i < result.rows.length; i++) {
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].creator==result3.rows[j].id){
   var a=result3.rows[j]
-  a[0].password="*******"
-  a[0].email="*******@gmail.com"
-  a[0].id="***"
-  result.rows[i].creator=a
+  a.password="*******"
+  a.email="*******@gmail.com"
+  a.id="***"
+  result.rows[i].create=a
 }}}
 for (let i = 0; i < result.rows.length; i++) {
   result.rows[i].oreder=[]
@@ -70,7 +68,7 @@ if(result.rows[i].oredersid==result4.rows[j].id){
 
 res.json(result.rows);
     } catch (error) {
-     
+      console.log(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
