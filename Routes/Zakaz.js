@@ -25,7 +25,7 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname,email FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
@@ -68,7 +68,7 @@ router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
      
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname,email FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
@@ -109,7 +109,7 @@ router.get('/mezakaz',auth.authenticateToken, async (req, res) => {
     try {
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname,email FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
