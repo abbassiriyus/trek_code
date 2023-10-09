@@ -93,7 +93,7 @@ var a=result1.rows.filter(item=>{item.sender===req.user.userId})
 
 
 })
-router.get('/myorders',Auth.authenticateToken,async (req,res)=>{
+router.get('/myorders2',Auth.authenticateToken,async (req,res)=>{
   try {
     const orders = 'SELECT * FROM orders';
     const ordersaddress = 'SELECT * FROM ordersaddress WHERE sender=$1 ';
