@@ -1,3 +1,5 @@
+
+require("dotenv").config()
 const pool = require("../db")
 const jwt = require('jsonwebtoken')
 
@@ -51,7 +53,7 @@ class Manager{
         }
     }
     async  updateUser(req,res) {
-        var {id, email, password, address}=req.body
+        var {email, password, address}=req.body
         var {id}=req.params
         const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';
         const values = [email, password, address, id];
@@ -67,7 +69,7 @@ class Manager{
         }
     }
     async  updateUser(req,res) {
-        var {id, email, password, address}=req.body
+        var { email, password, address}=req.body
         var {id}=req.params
         const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';
         const values = [email, password, address, id];
@@ -86,23 +88,20 @@ class Manager{
         const query = 'SELECT * FROM users WHERE email = $1 AND password = $2';
         var {email, password}=req.body
         const values = [email, password];
-    
         try {
             const result = await pool.query(query, values);
     
             if (result.rowCount === 0) {
                 throw new Error('Invalid email or password');
             }
-    
             const user = result.rows[0];
-            const token = jwt.sign({ userId: user.id, email: user.email }, 'your_secret_key', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_KEY, { expiresIn: '1h' });
             user.token=token
             return  res.status(200).send(result.rows[0]);
         } catch (error) {
             throw error;
         }
-    }
-    
+    }  
 }
 
 
