@@ -68,7 +68,7 @@ class Manager{
             return res.status(404).send({err:error,message:'Ошибка'})
         }
     }
-    async  updateUser(req,res) {
+    async  updateUser2(req,res) {
         var { email, password, address}=req.body
         var {id}=req.params
         const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';

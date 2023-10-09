@@ -5,10 +5,10 @@ const pool = require("../db")
 
 router.post('/ordersaddress', async (req, res) => {
     try {
-      const { ordersid, sender } = req.body;
+      const { orders_id, sender } = req.body;
       const client = await pool.connect();
-      const query = 'INSERT INTO ordersaddress (ordersid, sender) VALUES ($1, $2) RETURNING *';
-      const values = [ordersid, sender];
+      const query = 'INSERT INTO orders_address (orders_id, sender) VALUES ($1, $2) RETURNING *';
+      const values = [orders_id, sender];
       const result = await client.query(query, values);
       client.release();
       res.status(201).json(result.rows[0]);
@@ -21,7 +21,7 @@ router.post('/ordersaddress', async (req, res) => {
   router.get('/ordersaddress', async (req, res) => {
     try {
       const client = await pool.connect();
-      const query = 'SELECT * FROM ordersaddress';
+      const query = 'SELECT * FROM orders_address';
       const result = await client.query(query);
       client.release();
       res.json(result.rows);
@@ -34,10 +34,10 @@ router.post('/ordersaddress', async (req, res) => {
   router.put('/ordersaddress/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const { ordersid, sender } = req.body;
+      const { orders_id, sender } = req.body;
       const client = await pool.connect();
-      const query = 'UPDATE ordersaddress SET ordersid = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *';
-      const values = [id, ordersid, sender];
+      const query = 'UPDATE orders_address SET orders_id = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *';
+      const values = [id, orders_id, sender];
       const result = await client.query(query, values);
       client.release();
       res.json(result.rows[0]);
@@ -51,7 +51,7 @@ router.post('/ordersaddress', async (req, res) => {
     try {
       const { id } = req.params;
       const client = await pool.connect();
-      const query = 'DELETE FROM ordersaddress WHERE id = $1 RETURNING *';
+      const query = 'DELETE FROM orders_address WHERE id = $1 RETURNING *';
       const values = [id];
       const result = await client.query(query, values);
       client.release();

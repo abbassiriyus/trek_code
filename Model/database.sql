@@ -16,14 +16,14 @@ create table users(
 
 create table orders(
    "id" serial primary key,
-   "trackId" VARCHAR(50) not null, 
+   "trek_id" VARCHAR(50) not null, 
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
 )
-create table ordersaddress(
+create table orders_address(
    "id" serial primary key,
-   "ordersid" integer not null, 
+   "orders_id" integer not null, 
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null

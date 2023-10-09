@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const jwt = require('jsonwebtoken')
 const pool = require("../db")
 const Auth=require("../middleware/auth.js")
-router.post('/orders', async (req, res) => {
+router.post('/orders', async (req, res) => {  
+   const {trek_id,sender}=req.body;
+   const query='INSERT INTO orders (trek_id, sender) VALUES ($1, $2) RETURNING *';  
+    const values = [trek_id, sender];
     try {
-      const { trackId, sender } = req.body;
-      const query = 'INSERT INTO orders (trackId, sender) VALUES ($1, $2) RETURNING *';
-      const values = [trackId, sender];
-      const result = await pool.query(query, values);
-      res.status(201).json(result.rows[0]);
-    } catch (error) {
+    const result = await pool.query(query, values);
+    res.status(201).send(result.rows[0]);
+    }catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -42,7 +41,7 @@ for (let i = 0; i < result2.rows.length; i++) {
  }
  for (let i = 0; i < result1.rows.length; i++) {
 for (let j = 0; j < result2.rows.length; j++) {
-if(result1.rows[i].id==result2.rows[j].ordersid && result2.rows[j].insender[0]){
+if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0]){
   result1.rows[i].insender.push(result2.rows[j].insender[0])
 }
 }}
@@ -78,7 +77,7 @@ for (let i = 0; i < result2.rows.length; i++) {
  }
  for (let i = 0; i < result1.rows.length; i++) {
 for (let j = 0; j < result2.rows.length; j++) {
-if(result1.rows[i].id==result2.rows[j].ordersid && result2.rows[j].insender[0]){
+if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0]){
   result1.rows[i].insender.push(result2.rows[j].insender[0])
 }
 }}
@@ -102,7 +101,7 @@ router.get('/myorders2',Auth.authenticateToken,async (req,res)=>{
 var data=[]
 for (let i = 0; i < result2.rows.length; i++) {
  for (let j = 0; j < result1.rows.length; j++) {
-  if( result2.rows[i].ordersid==result1.rows[j].id){
+  if( result2.rows[i].orders_id==result1.rows[j].id){
     data.push(result1.rows[j])
   }
  }
@@ -117,9 +116,9 @@ res.json(data);
 router.put('/orders/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const { trackId, sender } = req.body;
-      const query = 'UPDATE orders SET trackId = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *';
-      const values = [id, trackId, sender];
+      const { track_id, sender } = req.body;
+      const query = 'UPDATE orders SET track_id = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *';
+      const values = [id, track_id, sender];
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
