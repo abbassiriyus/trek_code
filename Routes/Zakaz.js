@@ -33,39 +33,36 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
       const result4 = await pool.query(query4);
 
 for (let i = 0; i < result.rows.length; i++) {
-  result.rows[i].ponts=[]
+  result.rows[i].ponts=[] 
+  result.rows[i].create=[] 
+  result.rows[i].meneger=[]
 for (let j = 0; j < result2.rows.length; j++) {
 if(result.rows[i].id==result2.rows[j].zakaz_id){
   result.rows[i].ponts.push(result2.rows[j])
-}}}
-for (let i = 0; i < result.rows.length; i++) {
-  result.rows[i].meneger=[]
+}}
+ 
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].menegerid==result3.rows[j].id){
   var a=result3.rows[j]
-
   a.password="*******"
   a.email="*******@gmail.com"
   a.id="***"
   result.rows[i].meneger=a
-}}}
-for (let i = 0; i < result.rows.length; i++) {
-  result.rows[i].create=[]
-for (let j = 0; j < result3.rows.length; j++) {
+}
 if(result.rows[i].creator==result3.rows[j].id){
   var a=result3.rows[j]
   a.password="*******"
   a.email="*******@gmail.com"
   a.id="***"
   result.rows[i].create=a
-}}}
-for (let i = 0; i < result.rows.length; i++) {
+}
+}
   result.rows[i].oreder=[]
 for (let j = 0; j < result4.rows.length; j++) {
 if(result.rows[i].oredersid==result4.rows[j].id){
   result.rows[i].oreder=result4.rows[j]
-}}}
-
+}}
+}
 res.json(result.rows);
     } catch (error) {
       console.log(error);
