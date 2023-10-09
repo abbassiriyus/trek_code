@@ -14,7 +14,7 @@ router.post('/orders',auth.authenticateToken, async (req, res) => {
     }
   });
   
-router.get('/orders',auth.authenticateToken, async (req, res) => {
+router.get('/orders',auth.authenticateToken,auth.isAdmin, async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
     const orders_address = 'SELECT * FROM orders_address';

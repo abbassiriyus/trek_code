@@ -53,10 +53,10 @@ class Manager{
         }
     }
     async  updateUser(req,res) {
-        var {email, password, address}=req.body
+        var {email, password, address,patronimic,lastname,firstname}=req.body
         var {id}=req.params
-        const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';
-        const values = [email, password, address, id];
+        const query = 'UPDATE users SET email = $1, password = $2, address = $3,patronimic=$4,lastname=$5,firstname=$6,time_update = current_timestamp WHERE id = $7 RETURNING *';
+        const values = [email, password, address,patronimic,lastname,firstname, id];
         try {
             const result = await pool.query(query, values);
             if(result.rows[0].length==0){
@@ -69,10 +69,10 @@ class Manager{
         }
     }
     async  updateUser2(req,res) {
-        var { email, password, address}=req.body
+        var { email, password, address,patronimic,lastname,firstname,manager}=req.body
         var {id}=req.params
-        const query = 'UPDATE users SET email = $1, password = $2, address = $3,time_update = current_timestamp WHERE id = $4 RETURNING *';
-        const values = [email, password, address, id];
+        const query = 'UPDATE users SET email = $1, password = $2, address = $3,patronimic=$4,lastname=$5,firstname=$6,manager=$7,time_update = current_timestamp WHERE id = $8 RETURNING *';
+        const values = [email, password, address,patronimic,lastname,firstname,manager, id];
         try {
             const result = await pool.query(query, values);
             if(result.rows[0].length==0){
