@@ -18,7 +18,7 @@ router.get('/orders',auth.authenticateToken,auth.isAdmin, async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
     const orders_address = 'SELECT * FROM orders_address';
-    const users = 'SELECT address,email,id FROM users';
+    const users = 'SELECT address,email,id,firstname,patronimic,lastname FROM users';
     const result1 = await pool.query(orders);
     const result2 = await pool.query(orders_address);
     const result3 = await pool.query(users);

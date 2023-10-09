@@ -65,7 +65,6 @@ res.json(result.rows);
   
 router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
     try {
-     
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
       const query3= 'SELECT id,address,firstname,patronimic,lastname,email FROM users'
