@@ -26,7 +26,7 @@ class Manager{
             const result = await pool.query(query, values);
             const user = result.rows[0];
             // Create a JWT token for the user
-            const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_KEY);
+            const token = jwt.sign({ userId: user.id, email: user.email}, process.env.JWT_KEY);
             user.token=token
             return  res.status(200).send(result.rows[0]);
         } catch (error) {
@@ -94,7 +94,7 @@ class Manager{
                 res.status(500).send("error")
             }else{
                 const user = result.rows[0];
-            const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_KEY);
+            const token = jwt.sign({ userId: user.id, email: user.email,admin:user.admin,manager:user.manager}, process.env.JWT_KEY);
             user.token=token
             return  res.status(200).send(result.rows[0]);  
             }

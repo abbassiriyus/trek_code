@@ -17,6 +17,7 @@ console.log(token.slice(8),process.env.JWT_KEY);
 // Middleware yaratish: Faqatgina "admin" xususiyati tekshiriladi
 async  isAdmin(req, res, next) {
     const user = req.user;
+    console.log(user);
     if (!user || !user.admin) return res.sendStatus(403);
     next();
     }
