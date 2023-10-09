@@ -25,15 +25,62 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
      
       const query = 'SELECT * FROM zakaz';
+      const query2= 'SELECT * FROM points'
       const result = await pool.query(query);
-     
-      res.json(result.rows);
+      const result2 = await pool.query(query2);
+for (let i = 0; i < result.rows.length; i++) {
+  result.rows[i].ponts=[]
+for (let j = 0; j < result2.rows.length; j++) {
+if(result.rows[i].id==result2.rows[j].zakaz_id){
+  result.rows[i].ponts.push(result2.rows[j])
+}}}
+res.json(result.rows);
     } catch (error) {
      
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
   
+router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
+    try {
+     
+      const query = 'SELECT * FROM zakaz';
+      const query2= 'SELECT * FROM points'
+      const result = await pool.query(query);
+      const result2 = await pool.query(query2);
+for (let i = 0; i < result.rows.length; i++) {
+  result.rows[i].ponts=[]
+for (let j = 0; j < result2.rows.length; j++) {
+if(result.rows[i].id==result2.rows[j].zakaz_id){
+  result.rows[i].ponts.push(result2.rows[j])
+}}}
+var a=result.rows.filter(item=>item.creator==req.user.userId)
+res.json(a);
+    } catch (error) {
+     
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+router.get('/mezakaz',auth.authenticateToken, async (req, res) => {
+    try {
+      const query = 'SELECT * FROM zakaz';
+      const query2= 'SELECT * FROM points'
+      const result = await pool.query(query);
+      const result2 = await pool.query(query2);
+for (let i = 0; i < result.rows.length; i++) {
+  result.rows[i].ponts=[]
+for (let j = 0; j < result2.rows.length; j++) {
+if(result.rows[i].id==result2.rows[j].zakaz_id){
+  result.rows[i].ponts.push(result2.rows[j])
+}}}
+var a=result.rows.filter(item=>item.menegerid==req.user.userId)
+res.json(a);
+    } catch (error) {
+     
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
   // Update (PUT) operation
   router.put('/zakaz/:id',auth.authenticateToken, async (req, res) => {
     try {
