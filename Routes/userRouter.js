@@ -8,7 +8,7 @@ userRouter.get("/users" ,auth.authenticateToken, userController.getAll);
 userRouter.delete("/users/:id",auth.authenticateToken,userController.deleteUser);
 userRouter.put("/users/:id",auth.authenticateToken,userController.updateUser);
 userRouter.post("/register",auth.authenticateToken,userController.createUser);
-userRouter.post("/login",auth.authenticateToken,userController.loginUser);
+userRouter.post("/login",userController.loginUser);
 
 
 
