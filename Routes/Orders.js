@@ -109,7 +109,7 @@ for (let i = 0; i < result2.rows.length; i++) {
   }
  }
 }
-res.json(result1.rows);
+res.json(data);
 
     } catch (error) {
       console.error('Error:', error);
