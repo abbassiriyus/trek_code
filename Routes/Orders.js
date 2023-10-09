@@ -6,11 +6,9 @@ const Auth=require("../middleware/auth.js")
 router.post('/orders', async (req, res) => {
     try {
       const { trackId, sender } = req.body;
-      const client = await pool.connect();
       const query = 'INSERT INTO orders (trackId, sender) VALUES ($1, $2) RETURNING *';
       const values = [trackId, sender];
-      const result = await client.query(query, values);
-      client.release();
+      const result = await pool.query(query, values);
       res.status(201).json(result.rows[0]);
     } catch (error) {
       console.error('Error:', error);
