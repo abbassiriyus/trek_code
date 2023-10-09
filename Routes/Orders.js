@@ -10,7 +10,6 @@ router.post('/orders', async (req, res) => {
     const result = await pool.query(query, values);
     res.status(201).send(result.rows[0]);
     }catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -83,7 +82,6 @@ if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0])
 var a=result1.rows.filter(item=>{item.sender===req.user.userId})
       res.json(result1.rows);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
 
@@ -107,7 +105,6 @@ for (let i = 0; i < result2.rows.length; i++) {
 }
 res.json(data);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
 })
@@ -121,7 +118,6 @@ router.put('/orders/:id', async (req, res) => {
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -134,7 +130,6 @@ router.put('/orders/:id', async (req, res) => {
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });

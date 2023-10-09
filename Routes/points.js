@@ -14,7 +14,7 @@ router.post('/points', async (req, res) => {
  
       res.status(201).json(result.rows[0]);
     } catch (error) {
-      console.error('Error:', error);
+     
       res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -28,7 +28,6 @@ router.post('/points', async (req, res) => {
  
       res.json(result.rows);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -45,7 +44,6 @@ router.post('/points', async (req, res) => {
  
       res.json(result.rows[0]);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -61,7 +59,6 @@ router.post('/points', async (req, res) => {
  
       res.json(result.rows[0]);
     } catch (error) {
-      console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
