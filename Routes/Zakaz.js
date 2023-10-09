@@ -25,7 +25,7 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT * FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
@@ -43,18 +43,11 @@ if(result.rows[i].id==result2.rows[j].zakaz_id){
  
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].menegerid==result3.rows[j].id){
-  var a=result3.rows[j]
-  a.password="*******"
-  a.email="*******@gmail.com"
-  a.id="***"
-  result.rows[i].meneger=a
+
+  result.rows[i].meneger=result3.rows[j]
 }
 if(result.rows[i].creator==result3.rows[j].id){
-  var a=result3.rows[j]
-  a.password="*******"
-  a.email="*******@gmail.com"
-  a.id="***"
-  result.rows[i].create=a
+  result.rows[i].create=result3.rows[j]
 }
 }
   result.rows[i].oreder=[]
@@ -75,7 +68,7 @@ router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
      
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT * FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
@@ -93,18 +86,10 @@ if(result.rows[i].id==result2.rows[j].zakaz_id){
  
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].menegerid==result3.rows[j].id){
-  var a=result3.rows[j]
-  a.password="*******"
-  a.email="*******@gmail.com"
-  a.id="***"
-  result.rows[i].meneger=a
+  result.rows[i].meneger=result3.rows[j]
 }
 if(result.rows[i].creator==result3.rows[j].id){
-  var a=result3.rows[j]
-  a.password="*******"
-  a.email="*******@gmail.com"
-  a.id="***"
-  result.rows[i].create=a
+  result.rows[i].create=result3.rows[j]
 }
 }
   result.rows[i].oreder=[]
@@ -124,7 +109,7 @@ router.get('/mezakaz',auth.authenticateToken, async (req, res) => {
     try {
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT * FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
