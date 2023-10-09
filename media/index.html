@@ -38,7 +38,19 @@
       "firstname" VARCHAR(120) default 'Firstname' not null,
       "patronimic" VARCHAR(120) default 'Patronimic' not null,
       "lastname" VARCHAR(120) default 'Lastname' not null,
-      "admin" boolean default false not null,
+    </pre>
+  </div>
+  <div class="ddf" >
+    <h1>/auth/admin/users</h1>
+    <p>Method:PUT</p>
+    <pre>
+      "id" serial primary key,
+      "email" VARCHAR(120) not null,
+      "password" VARCHAR(100) not null,
+      "address" VARCHAR(1024),
+      "firstname" VARCHAR(120) default 'Firstname' not null,
+      "patronimic" VARCHAR(120) default 'Patronimic' not null,
+      "lastname" VARCHAR(120) default 'Lastname' not null,
       "manager" boolean default false not null,
     </pre>
   </div>
