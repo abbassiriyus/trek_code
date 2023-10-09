@@ -18,10 +18,10 @@ router.post('/orders', async (req, res) => {
 router.get('/orders', async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
-    const ordersaddress = 'SELECT * FROM orders_address';
+    const orders_address = 'SELECT * FROM orders_address';
     const users = 'SELECT address,email,id FROM users';
     const result1 = await pool.query(orders);
-    const result2 = await pool.query(ordersaddress);
+    const result2 = await pool.query(orders_address);
     const result3 = await pool.query(users);
 for (let i = 0; i < result1.rows.length; i++) {
  result1.rows[i].insender=[]
@@ -53,10 +53,10 @@ if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0])
 router.get('/myorders',Auth.authenticateToken,async (req,res)=>{
   try {
     const orders = 'SELECT * FROM orders';
-    const ordersaddress = 'SELECT * FROM ordersaddress';
+    const orders_address = 'SELECT * FROM orders_address';
     const users = 'SELECT address,email,id FROM users';
     const result1 = await pool.query(orders);
-    const result2 = await pool.query(ordersaddress);
+    const result2 = await pool.query(orders_address);
     const result3 = await pool.query(users);
 for (let i = 0; i < result1.rows.length; i++) {
  result1.rows[i].insender=[]
@@ -92,11 +92,11 @@ var a=result1.rows.filter(item=>{item.sender===req.user.userId})
 router.get('/myorders2',Auth.authenticateToken,async (req,res)=>{
   try {
     const orders = 'SELECT * FROM orders';
-    const ordersaddress = 'SELECT * FROM ordersaddress WHERE sender=$1 ';
+    const orders_address = 'SELECT * FROM orders_address WHERE sender=$1 ';
     var  values=[req.user.userId]
     const users = 'SELECT address,email,id FROM users';
     const result1 = await pool.query(orders);
-    const result2 = await pool.query(ordersaddress,values);
+    const result2 = await pool.query(orders_address,values);
 var data=[]
 for (let i = 0; i < result2.rows.length; i++) {
  for (let j = 0; j < result1.rows.length; j++) {
