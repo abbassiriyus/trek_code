@@ -42,7 +42,7 @@ class Manager{
         const values = [id];
         try {
             const result = await pool.query(query, values);
-            if (result.rowCount === 0) {
+            if (result.rowCount === 0 || (req.params.od!=req.user.userId && !req.user.userId==1)) {
              return res.status(404).send({err:"User not found",message:'Ошибка'})  // Error if no user was deleted
             }else{
             //  await pool.query(query, values) 

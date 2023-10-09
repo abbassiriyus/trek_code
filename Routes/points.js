@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
-const pool = require("../db")
+const pool = require("../db");
+const auth = require('../middleware/auth');
 
 // Create (POST) operation
-router.post('/points', async (req, res) => {
+router.post('/points',auth.authenticateToken, async (req, res) => {
     try {
       const { status, zakaz_id } = req.body;
    
@@ -20,7 +21,7 @@ router.post('/points', async (req, res) => {
 });
   
   // Read (GET) operation
-  router.get('/points', async (req, res) => {
+  router.get('/points',auth.authenticateToken, async (req, res) => {
     try {
      
       const query = 'SELECT * FROM points';
@@ -33,7 +34,7 @@ router.post('/points', async (req, res) => {
   });
   
   // Update (PUT) operation
-  router.put('/points/:id', async (req, res) => {
+  router.put('/points/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
       const { status, zakaz_id } = req.body;
@@ -49,7 +50,7 @@ router.post('/points', async (req, res) => {
   });
   
   // Delete (DELETE) operation
-  router.delete('/points/:id', async (req, res) => {
+  router.delete('/points/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
      

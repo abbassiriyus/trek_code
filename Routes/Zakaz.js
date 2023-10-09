@@ -5,7 +5,7 @@ const pool = require("../db")
 
 
 // Create (POST) operation
-router.post('/zakaz', async (req, res) => {
+router.post('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
       const { status, menegerid, deckription, creator, oredersid } = req.body;
      
@@ -21,7 +21,7 @@ router.post('/zakaz', async (req, res) => {
   });
   
   // Read (GET) operation
-  router.get('/zakaz', async (req, res) => {
+  router.get('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
      
       const query = 'SELECT * FROM zakaz';
@@ -35,7 +35,7 @@ router.post('/zakaz', async (req, res) => {
   });
   
   // Update (PUT) operation
-  router.put('/zakaz/:id', async (req, res) => {
+  router.put('/zakaz/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
       const { status, menegerid, deckription, creator, oredersid } = req.body;
@@ -52,7 +52,7 @@ router.post('/zakaz', async (req, res) => {
   });
   
   // Delete (DELETE) operation
-  router.delete('/zakaz/:id', async (req, res) => {
+  router.delete('/zakaz/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
      

@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
-const pool = require("../db")
+const pool = require("../db");
+const auth = require('../middleware/auth');
 
-router.post('/ordersaddress', async (req, res) => {
+router.post('/ordersaddress',auth.authenticateToken, async (req, res) => {
     try {
       const { orders_id, sender } = req.body;
-   
       const query = 'INSERT INTO orders_address (orders_id, sender) VALUES ($1, $2) RETURNING *';
       const values = [orders_id, sender];
       const result = await pool.query(query, values);
@@ -18,7 +18,7 @@ router.post('/ordersaddress', async (req, res) => {
     }
   });
   
-  router.get('/ordersaddress', async (req, res) => {
+  router.get('/ordersaddress',auth.authenticateToken, async (req, res) => {
     try {
 
       const query = 'SELECT * FROM orders_address';
@@ -31,7 +31,7 @@ router.post('/ordersaddress', async (req, res) => {
     }
   });
   
-  router.put('/ordersaddress/:id', async (req, res) => {
+  router.put('/ordersaddress/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
       const { orders_id, sender } = req.body;
@@ -47,7 +47,7 @@ router.post('/ordersaddress', async (req, res) => {
     }
   });
   
-  router.delete('/ordersaddress/:id', async (req, res) => {
+  router.delete('/ordersaddress/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
     

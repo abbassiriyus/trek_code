@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const pool = require("../db")
 const Auth=require("../middleware/auth.js")
-router.post('/orders', async (req, res) => {  
+router.post('/orders',auth.authenticateToken, async (req, res) => {  
    const {trek_id,sender}=req.body;
    const query='INSERT INTO orders (trek_id, sender) VALUES ($1, $2) RETURNING *';  
     const values = [trek_id, sender];
@@ -14,7 +14,7 @@ router.post('/orders', async (req, res) => {
     }
   });
   
-router.get('/orders', async (req, res) => {
+router.get('/orders',auth.authenticateToken, async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
     const orders_address = 'SELECT * FROM orders_address';
@@ -109,7 +109,7 @@ res.json(data);
     }
 })
 
-router.put('/orders/:id', async (req, res) => {
+router.put('/orders/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
       const { track_id, sender } = req.body;
@@ -122,7 +122,7 @@ router.put('/orders/:id', async (req, res) => {
     }
   });
   
-  router.delete('/orders/:id', async (req, res) => {
+  router.delete('/orders/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
       const query = 'DELETE FROM orders WHERE id = $1 RETURNING *';
