@@ -72,7 +72,7 @@ router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
     try {
       const query = 'SELECT * FROM zakaz';
       const query2= 'SELECT * FROM points'
-      const query3= 'SELECT id,address,firstname,patronimic,lastname,email,adressuser FROM users'
+      const query3= 'SELECT id,address,firstname,patronimic,lastname,email FROM users'
       const query4= 'SELECT * FROM orders'
       const result = await pool.query(query);
       const result2 = await pool.query(query2);
@@ -110,7 +110,7 @@ if(result.rows[i].oredersid==result4.rows[j].id){
 var a=result.rows.filter(item=>item.creator==req.user.userId)
 res.json(a);
     } catch (error) {
-     
+     console.log(error)
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
