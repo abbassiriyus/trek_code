@@ -13,7 +13,47 @@ router.post('/orders',auth.authenticateToken, async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
-  
+router.get('/orders/search', async (req, res) => {
+    try {
+      const orders = 'SELECT * FROM orders';
+      const orders_address = 'SELECT * FROM orders_address';
+      const users = 'SELECT address,email,id,firstname,patronimic,lastname FROM users';
+      const result1 = await pool.query(orders);
+      const result2 = await pool.query(orders_address);
+      const result3 = await pool.query(users);
+  for (let i = 0; i < result1.rows.length; i++) {
+   result1.rows[i].insender=[]
+  for (let j = 0; j < result3.rows.length; j++) {
+   if (result1.rows[i].sender==result3.rows[j].id) {
+    result1.rows[i].insender.push(result3.rows[j])
+   }
+   }
+  }
+  for (let i = 0; i < result2.rows.length; i++) {
+    result2.rows[i].insender=[]
+   for (let j = 0; j < result3.rows.length; j++) {
+    if (result2.rows[i].sender==result3.rows[j].id) {
+     result2.rows[i].insender.push(result3.rows[j])
+    }
+    }
+   }
+   for (let i = 0; i < result1.rows.length; i++) {
+  for (let j = 0; j < result2.rows.length; j++) {
+  if(result1.rows[i].id==result2.rows[j].orders_id && result2.rows[j].insender[0]){
+    result1.rows[i].insender.push(result2.rows[j].insender[0])
+  }
+  }}
+  var a
+  if(req.query && req.query.trek_id){
+ a=result1.rows.filter(item=>item.trek_id==req.query.trek_id)
+  }else{
+    a=[]
+  }
+        res.json(a);
+      } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
 router.get('/orders',auth.authenticateToken,auth.isAdmin, async (req, res) => {
   try {
     const orders = 'SELECT * FROM orders';
