@@ -167,7 +167,7 @@ res.json(a);
       const { id } = req.params;
       const { status, menegerid, deckription, creator, oredersid,adressuser } = req.body;
      
-      const query = 'UPDATE zakaz SET status = $2, menegerid = $3, deckription = $4, creator = $5, oredersid = $6,adressuser=$7 time_update = current_timestamp WHERE id = $1 RETURNING *';
+      const query = 'UPDATE zakaz SET status = $2, menegerid = $3, deckription = $4, creator = $5, oredersid = $6,adressuser=$7,time_update = current_timestamp WHERE id = $1 RETURNING *';
       const values = [id, status, menegerid, deckription, creator, oredersid,adressuser];
       const result = await pool.query(query, values);
      
