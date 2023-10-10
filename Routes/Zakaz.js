@@ -8,9 +8,9 @@ const auth = require('../middleware/auth');
 // Create (POST) operation
 router.post('/zakaz',auth.authenticateToken, async (req, res) => {
     try {
-      const { status, menegerid, deckription, creator, oredersid } = req.body;
-      const query = 'INSERT INTO zakaz (status, menegerid, deckription, creator, oredersid) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-      const values = [status, menegerid, deckription, creator, oredersid];
+      const { status, menegerid, deckription, creator, oredersid,adressuser } = req.body;
+      const query = 'INSERT INTO zakaz (status, menegerid, deckription, creator, oredersid,adressuser) VALUES ($1, $2, $3, $4, $5,$6) RETURNING *';
+      const values = [status, menegerid, deckription, creator, oredersid,adressuser];
       const result = await pool.query(query, values);
      
       res.status(201).json(result.rows[0]);
@@ -76,8 +76,9 @@ router.get('/myzakaz',auth.authenticateToken, async (req, res) => {
 
 for (let i = 0; i < result.rows.length; i++) {
   result.rows[i].ponts=[] 
-  result.rows[i].create=[] 
-  result.rows[i].meneger=[]
+  result.rows[i].create={}
+  result.rows[i].meneger={}
+  result.rows[i].address={}
 for (let j = 0; j < result2.rows.length; j++) {
 if(result.rows[i].id==result2.rows[j].zakaz_id){
   result.rows[i].ponts.push(result2.rows[j])
@@ -89,6 +90,9 @@ if(result.rows[i].menegerid==result3.rows[j].id){
 }
 if(result.rows[i].creator==result3.rows[j].id){
   result.rows[i].create=result3.rows[j]
+}
+if(result.rows[i].adressuser==result3.rows[j].id){
+  result.rows[i].address=result3.rows[j]
 }
 }
   result.rows[i].oreder=[]
@@ -158,10 +162,10 @@ res.json(a);
   router.put('/zakaz/:id',auth.authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
-      const { status, menegerid, deckription, creator, oredersid } = req.body;
+      const { status, menegerid, deckription, creator, oredersid,adressuser } = req.body;
      
-      const query = 'UPDATE zakaz SET status = $2, menegerid = $3, deckription = $4, creator = $5, oredersid = $6, time_update = current_timestamp WHERE id = $1 RETURNING *';
-      const values = [id, status, menegerid, deckription, creator, oredersid];
+      const query = 'UPDATE zakaz SET status = $2, menegerid = $3, deckription = $4, creator = $5, oredersid = $6,adressuser=$7 time_update = current_timestamp WHERE id = $1 RETURNING *';
+      const values = [id, status, menegerid, deckription, creator, oredersid,adressuser];
       const result = await pool.query(query, values);
      
       res.json(result.rows[0]);
