@@ -34,7 +34,8 @@ create table zakaz(
    "status" integer default 1 not null, 
    "menegerid" integer,
    "deckription" text,
-   "adressuser" integer, 
+   "
+   " integer, 
    "creator" integer default 1 not null, 
    "oredersid" integer default 1 not null,
    "time_create" timestamp  default current_timestamp not null,

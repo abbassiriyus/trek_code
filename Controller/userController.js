@@ -100,7 +100,7 @@ class Manager{
             }
           
         } catch (error) {
-            res.status(500).send("error")
+            res.status(500).send( {message: 'Internal Server Error',error})
         }
     }  
 }

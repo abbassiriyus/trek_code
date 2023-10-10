@@ -45,7 +45,7 @@ router.post('/points',auth.authenticateToken, async (req, res) => {
  
       res.json(result.rows[0]);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ message: 'Internal Server Error',error});
     }
   });
   
