@@ -18,6 +18,19 @@ class Manager{
             return res.status(404).send('Ошибка')
         }
     }
+    async getone(req,res){
+        try{
+            pool.query("SELECT id FROM your_table WHERE id = $1",req.user.userId, (err, result) => {
+                if (!err) {
+                    res.status(200).send(result.rows)  
+                } else {
+                    res.status(400).send({err:err,message:'sql not running'})
+                } 
+            })
+        }catch{
+            return res.status(404).send('Ошибка')
+        }
+    }
     async createUser(req,res) {
         let {email, password}=req.body
         const query = 'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *';
