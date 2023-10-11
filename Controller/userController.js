@@ -20,7 +20,7 @@ class Manager{
     }
     async getone(req,res){
         try{
-            pool.query("SELECT id FROM your_table WHERE id = $1",req.user.userId, (err, result) => {
+            pool.query("SELECT id FROM users WHERE id = $1",req.user.userId, (err, result) => {
                 if (!err) {
                     res.status(200).send(result.rows)  
                 } else {
