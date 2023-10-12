@@ -172,10 +172,10 @@ router.get("/myorders2", auth.authenticateToken, async (req, res) => {
 router.put("/orders/:id", auth.authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const { track_id, sender } = req.body;
+    const { trek_id, sender } = req.body;
     const query =
-      "UPDATE orders SET track_id = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *";
-    const values = [id, track_id, sender];
+      "UPDATE orders SET trek_id = $2, sender = $3, time_update = current_timestamp WHERE id = $1 RETURNING *";
+    const values = [id, trek_id, sender];
     const result = await pool.query(query, values);
     res.json(result.rows[0]);
   } catch (error) {
