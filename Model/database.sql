@@ -20,31 +20,30 @@ create table orders(
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
-)
+);
 create table orders_address(
    "id" serial primary key,
    "orders_id" integer not null, 
    "sender" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
-)
+);
 
 create table zakaz(
    "id" serial primary key,
    "status" integer default 1 not null, 
    "menegerid" integer,
    "deckription" text,
-   "
-   " integer, 
+   "adressuser" integer, 
    "creator" integer default 1 not null, 
    "oredersid" integer default 1 not null,
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
-)
+);
 create table points(
    "id" serial primary key,
    "status" integer default 1 not null, 
    "zakaz_id" integer default 1 not null, 
    "time_create" timestamp  default current_timestamp not null,
    "time_update" timestamp default current_timestamp not null
-)
+);

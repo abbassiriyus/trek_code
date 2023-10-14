@@ -11,11 +11,9 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
       const { status, menegerid, deckription, creator, oredersid,adressuser } = req.body;
       const query = 'INSERT INTO zakaz (status, menegerid, deckription, creator, oredersid,adressuser) VALUES ($1, $2, $3, $4, $5,$6) RETURNING *';
       const values = [status, menegerid, deckription, creator, oredersid,adressuser];
-      const result = await pool.query(query, values);
-     
+      const result = await pool.query(query, values); 
       res.status(201).json(result.rows[0]);
     } catch (error) {
-     
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -31,7 +29,6 @@ router.post('/zakaz',auth.authenticateToken, async (req, res) => {
       const result2 = await pool.query(query2);
       const result3 = await pool.query(query3);
       const result4 = await pool.query(query4);
-
 for (let i = 0; i < result.rows.length; i++) {
   result.rows[i].ponts=[] 
   result.rows[i].create=[] 
@@ -43,14 +40,11 @@ if(result.rows[i].id==result2.rows[j].zakaz_id){
  result.rows[i].address={}
 for (let j = 0; j < result3.rows.length; j++) {
 if(result.rows[i].menegerid==result3.rows[j].id){
-
   result.rows[i].meneger=result3.rows[j]
 }
 if(result.rows[i].creator==result3.rows[j].id){
   result.rows[i].create=result3.rows[j]
 }
-
-
 if(result.rows[i].adressuser==result3.rows[j].id){
   result.rows[i].address=result3.rows[j]
 }

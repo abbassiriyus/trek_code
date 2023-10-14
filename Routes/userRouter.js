@@ -10,7 +10,6 @@ userRouter.get("/user",auth.authenticateToken, userController.getone);
 userRouter.delete("/users/:id",auth.authenticateToken,auth.isAdmin,userController.deleteUser);
 userRouter.put("/users/:id",auth.authenticateToken,userController.updateUser);
 userRouter.put("/admin/:id",auth.authenticateToken,auth.isAdmin,userController.updateUser2);
-
 userRouter.post("/register",auth.authenticateToken,userController.createUser);
 userRouter.post("/login",userController.loginUser);
 
